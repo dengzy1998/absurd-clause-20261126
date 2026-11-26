@@ -28,9 +28,12 @@ Champion: C2. It won because it is the most concrete and self-contained
 absurdity: death, inheritance, a least favorite cousin, a 30-day deadline,
 and the Company's cat, all in deadpan legal register, landing on one reading
 with no setup.
+
+Usage: python3 main.py  -- writes the clause to /output/entry.txt exactly
+as-is (single line, no trailing newline).
 """
 
-import os
+from pathlib import Path
 
 ENTRY = (
     "If you die while using the Service, your account will be inherited by "
@@ -38,11 +41,12 @@ ENTRY = (
     "it to the Company's cat."
 )
 
+OUTPUT_PATH = Path("/output/entry.txt")
+
 
 def main() -> None:
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(ENTRY)
+    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT_PATH.write_text(ENTRY, encoding="utf-8")
 
 
 if __name__ == "__main__":
